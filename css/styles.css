@@ -211,13 +211,73 @@ body {
     padding: calc(var(--spacing-unit) * 4);
     min-height: 400px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-medium);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+}
+
+.preview-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.preview-controls-left {
+    display: flex;
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.preview-content {
+    background: white;
+    border-radius: var(--radius-md);
+    min-height: 300px;
+    overflow: hidden;
+    transition: all var(--transition-medium);
+    flex-grow: 1;
+}
+
+.preview-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: var(--text-disabled);
+    font-size: 1.2rem;
+}
+
+/* Preview Modes */
+.preview-desktop .preview-content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.preview-tablet .preview-content {
+    width: 768px;
+    margin: 0 auto;
+}
+
+.preview-mobile .preview-content {
+    width: 375px;
+    margin: 0 auto;
 }
 
 .preview-controls {
     margin-top: calc(var(--spacing-unit) * 3);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-controls-left {
+    display: flex;
     gap: calc(var(--spacing-unit) * 2);
-    justify-content: center;
+}
+
+.preview-controls-right {
+    margin-left: auto;
 }
 
 /* Buttons */
@@ -229,11 +289,30 @@ body {
     border-radius: var(--radius-md);
     font-weight: 500;
     cursor: pointer;
-    transition: background-color var(--transition-fast);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .button:hover {
     background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.button-secondary {
+    background: var(--surface-color-hover);
+    border: 1px solid var(--primary-color);
+    margin-left: var(--spacing-unit);
+}
+
+.button-secondary:hover {
+    background: var(--primary-color);
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-unit);
+    margin-top: calc(var(--spacing-unit) * 2);
 }
 
 /* Footer */

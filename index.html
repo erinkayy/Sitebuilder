@@ -6,6 +6,9 @@
     <title>AI Site Builder</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/blocks.css" rel="stylesheet">
+    <link href="css/modal.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -82,13 +85,18 @@
                 <div class="container">
                     <h2>Site Preview</h2>
                     <div class="preview-area">
+                                <div class="preview-controls">
+                            <div class="preview-controls-left">
+                                <button class="button">Desktop</button>
+                                <button class="button">Tablet</button>
+                                <button class="button">Mobile</button>
+                            </div>
+                            <div class="preview-controls-right">
+                                <button class="button button-secondary" id="siteStylesBtn">Site Styles</button>
+                            </div>
+                        </div>
                         <div class="preview-content">
                             <!-- Preview content will be inserted here -->
-                        </div>
-                        <div class="preview-controls">
-                            <button class="button">Desktop</button>
-                            <button class="button">Tablet</button>
-                            <button class="button">Mobile</button>
                         </div>
                     </div>
                 </div>
@@ -102,6 +110,151 @@
         </footer>
     </div>
 
+    <!-- Site Styles Modal -->
+    <div class="modal" id="siteStylesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Site Styles</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="style-sections">
+                    <!-- Color Theme -->
+                    <div class="style-section">
+                        <h3>Color Theme</h3>
+                        <div class="color-presets">
+                            <button class="color-preset" data-theme="modern">
+                                <span class="color-preview" style="background: linear-gradient(45deg, #2196f3, #f50057)"></span>
+                                Modern
+                            </button>
+                            <button class="color-preset" data-theme="elegant">
+                                <span class="color-preview" style="background: linear-gradient(45deg, #9c27b0, #ff9800)"></span>
+                                Elegant
+                            </button>
+                            <button class="color-preset" data-theme="natural">
+                                <span class="color-preview" style="background: linear-gradient(45deg, #4caf50, #cddc39)"></span>
+                                Natural
+                            </button>
+                            <button class="color-preset" data-theme="bold">
+                                <span class="color-preview" style="background: linear-gradient(45deg, #f44336, #ff9800)"></span>
+                                Bold
+                            </button>
+                        </div>
+                        <div class="custom-colors">
+                            <div class="color-input">
+                                <label>Primary Color</label>
+                                <input type="color" id="primaryColor" value="#2196f3">
+                            </div>
+                            <div class="color-input">
+                                <label>Secondary Color</label>
+                                <input type="color" id="secondaryColor" value="#f50057">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typography -->
+                    <div class="style-section">
+                        <h3>Typography</h3>
+                        <div class="font-presets">
+                            <button class="font-preset" data-font="modern">
+                                <span class="font-preview" style="font-family: 'Inter'">Aa</span>
+                                Modern Sans
+                            </button>
+                            <button class="font-preset" data-font="classic">
+                                <span class="font-preview" style="font-family: 'Merriweather'">Aa</span>
+                                Classic Serif
+                            </button>
+                            <button class="font-preset" data-font="minimal">
+                                <span class="font-preview" style="font-family: 'Space Grotesk'">Aa</span>
+                                Minimal
+                            </button>
+                            <button class="font-preset" data-font="creative">
+                                <span class="font-preview" style="font-family: 'Plus Jakarta Sans'">Aa</span>
+                                Creative
+                            </button>
+                        </div>
+                        <div class="typography-controls">
+                            <div class="font-size-control">
+                                <label>Base Font Size</label>
+                                <div class="size-inputs">
+                                    <button class="size-preset" data-size="small">Small</button>
+                                    <button class="size-preset active" data-size="medium">Medium</button>
+                                    <button class="size-preset" data-size="large">Large</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layout & Spacing -->
+                    <div class="style-section">
+                        <h3>Layout & Spacing</h3>
+                        <div class="layout-presets">
+                            <button class="layout-preset" data-layout="comfortable">
+                                <span class="layout-preview comfortable"></span>
+                                Comfortable
+                            </button>
+                            <button class="layout-preset" data-layout="compact">
+                                <span class="layout-preview compact"></span>
+                                Compact
+                            </button>
+                            <button class="layout-preset" data-layout="spacious">
+                                <span class="layout-preview spacious"></span>
+                                Spacious
+                            </button>
+                        </div>
+                        <div class="layout-controls">
+                            <div class="spacing-control">
+                                <label>Content Width</label>
+                                <input type="range" id="contentWidth" min="800" max="1400" value="1200">
+                                <div class="range-labels">
+                                    <span>Narrow</span>
+                                    <span>Wide</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Effects & Animation -->
+                    <div class="style-section">
+                        <h3>Effects & Animation</h3>
+                        <div class="effects-options">
+                            <div class="effect-toggle">
+                                <label>
+                                    <input type="checkbox" id="enableShadows" checked>
+                                    Shadows
+                                </label>
+                            </div>
+                            <div class="effect-toggle">
+                                <label>
+                                    <input type="checkbox" id="enableRounded" checked>
+                                    Rounded Corners
+                                </label>
+                            </div>
+                            <div class="effect-toggle">
+                                <label>
+                                    <input type="checkbox" id="enableAnimations" checked>
+                                    Animations
+                                </label>
+                            </div>
+                            <div class="effect-toggle">
+                                <label>
+                                    <input type="checkbox" id="enableGlass" checked>
+                                    Glass Effect
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="button button-secondary" id="resetStyles">Reset to Default</button>
+                <button class="button" id="applyStyles">Apply Styles</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/app.js"></script>
+    <script src="js/blocks.js"></script>
+    <script src="js/styles.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// Enhanced AI Site Builder with Advanced Simulation
+// Enhanced AI Site Builder with Advanced Simulation and Block System Integration
 class AIBuilder {
     constructor() {
         this.state = {
@@ -9,7 +9,6 @@ class AIBuilder {
                 content: null,
                 design: null
             },
-            blocks: [],
             aiContext: {},
             suggestions: []
         };
@@ -48,6 +47,44 @@ class AIBuilder {
         this.setupEventListeners();
         this.loadSavedState();
         this.initializeAI();
+        this.initializeBlockSystem();
+    }
+
+    initializeBlockSystem() {
+        // Initialize preview area
+        const previewContent = document.querySelector('.preview-content');
+        if (previewContent) {
+            previewContent.innerHTML = '<div class="preview-placeholder">Your site preview will appear here</div>';
+        }
+
+        // Setup preview controls
+        const previewControls = document.querySelectorAll('.preview-controls-left .button');
+        previewControls.forEach(control => {
+            control.addEventListener('click', (e) => {
+                const mode = e.target.textContent.toLowerCase();
+                this.updatePreviewMode(mode);
+            });
+        });
+    }
+
+    updatePreviewMode(mode) {
+        const previewArea = document.querySelector('.preview-area');
+        if (!previewArea) return;
+
+        // Remove existing mode classes
+        previewArea.classList.remove('preview-desktop', 'preview-tablet', 'preview-mobile');
+        
+        // Add new mode class
+        previewArea.classList.add(`preview-${mode}`);
+
+        // Update buttons
+        const buttons = document.querySelectorAll('.preview-controls-left .button');
+        buttons.forEach(button => {
+            button.classList.remove('active');
+            if (button.textContent.toLowerCase() === mode) {
+                button.classList.add('active');
+            }
+        });
     }
 
     setupEventListeners() {
@@ -57,6 +94,10 @@ class AIBuilder {
                 e.preventDefault();
                 const section = document.querySelector(e.target.getAttribute('href'));
                 section.scrollIntoView({ behavior: 'smooth' });
+                
+                // Update active state
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                e.target.classList.add('active');
             });
         });
 
@@ -306,6 +347,7 @@ class AIBuilder {
                 <h3>${step.title}</h3>
                 <p>${step.prompt}</p>
                 <textarea placeholder="Type your response here..."></textarea>
+                <div class="ai-response"></div>
                 <button class="button">Next</button>
             `;
         }
@@ -337,6 +379,48 @@ class AIBuilder {
             this.updateUIFromState();
         }
     }
+
+    addBlock(blockType) {
+        const template = window.blockSystem.getBlockTemplate(blockType.toLowerCase().replace(/\s+/g, ''));
+        if (!template) {
+            console.error(`Block type "${blockType}" not found`);
+            return;
+        }
+
+        // Add block to the block system
+        const block = window.blockSystem.addBlock(blockType.toLowerCase().replace(/\s+/g, ''));
+        
+        // Update preview
+        this.updatePreview();
+    }
+
+    updatePreview() {
+        const previewContent = document.querySelector('.preview-content');
+        if (previewContent) {
+            previewContent.innerHTML = window.blockSystem.renderAllBlocks();
+        }
+    }
+
+    // Placeholder methods for AI analysis
+    suggestLayout() { return {}; }
+    suggestColorScheme() { return {}; }
+    suggestBlocks() { return []; }
+    suggestContentStrategy() { return {}; }
+    identifyBrandValues() { return []; }
+    determineBrandPersonality() { return ''; }
+    identifyContentSections() { return []; }
+    determineContentTone() { return ''; }
+    suggestContentStructure() { return {}; }
+    extractColorPreferences() { return []; }
+    determineDesignStyle() { return ''; }
+    identifyDesignElements() { return []; }
+    generateGoalBasedSuggestions() { return []; }
+    generateBrandBasedSuggestions() { return []; }
+    generateContentSuggestions() { return []; }
+    generateDesignSuggestions() { return []; }
+    initializeAI() {}
+    updateUIFromState() {}
+    transitionToBuilder() {}
 }
 
 // Initialize the builder when the page loads
