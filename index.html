@@ -3,87 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Website Builder Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>AI Site Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="dashboard">
-        <nav class="sidebar">
-            <div class="logo">
-                <h2>AI Website Builder</h2>
+    <div id="app">
+        <header class="header">
+            <div class="container">
+                <h1>AI Site Builder</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#guided" class="active">Guided Setup</a></li>
+                        <li><a href="#blocks">Blocks</a></li>
+                        <li><a href="#preview">Preview</a></li>
+                    </ul>
+                </nav>
             </div>
-            <ul class="nav-items">
-                <li class="active"><a href="#overview">Overview</a></li>
-                <li><a href="#catalog">Catalog</a></li>
-                <li><a href="#hours">Business Hours</a></li>
-                <li><a href="#settings">Settings</a></li>
-            </ul>
-        </nav>
-        
-        <main class="main-content">
-            <header>
-                <h1>Business Dashboard</h1>
-                <div class="user-info">
-                    <span>Welcome, Store Owner</span>
+        </header>
+
+        <main class="main">
+            <section id="guided" class="section guided-experience">
+                <div class="container">
+                    <h2>Guided Experience</h2>
+                    <div class="steps">
+                        <div class="step fade-in">
+                            <h3>Project Goals</h3>
+                            <p>What kind of website are you looking to create? Tell me about your project's goals and target audience.</p>
+                            <textarea placeholder="Describe your project goals..."></textarea>
+                            <div class="ai-response">
+                                <!-- AI responses will be inserted here -->
+                            </div>
+                            <button class="button">Next</button>
+                        </div>
+                    </div>
                 </div>
-            </header>
+            </section>
 
-            <div class="content-area">
-                <section class="overview-section">
-                    <h2>Business Overview</h2>
-                    <div class="info-cards">
-                        <div class="card">
-                            <h3>Store Status</h3>
-                            <p class="status-open">Open Now</p>
-                            <p>Next closes at 9:00 PM</p>
+            <section id="blocks" class="section block-library">
+                <div class="container">
+                    <h2>Block Library</h2>
+                    <div class="blocks-grid">
+                        <div class="block fade-in">
+                            <h3>Hero Section</h3>
+                            <p>Create a stunning first impression with a dynamic hero section</p>
+                            <button class="button">Add Block</button>
                         </div>
-                        <div class="card">
-                            <h3>Catalog Items</h3>
-                            <p class="number">24</p>
-                            <p>Active Products</p>
+                        <div class="block fade-in">
+                            <h3>Feature Grid</h3>
+                            <p>Showcase your key features or services in an elegant grid</p>
+                            <button class="button">Add Block</button>
                         </div>
-                        <div class="card">
-                            <h3>Website Status</h3>
-                            <p class="status-active">Live</p>
-                            <p>Last updated: 2h ago</p>
+                        <div class="block fade-in">
+                            <h3>Content Section</h3>
+                            <p>Add rich content with images, text, and calls to action</p>
+                            <button class="button">Add Block</button>
+                        </div>
+                        <div class="block fade-in">
+                            <h3>Testimonials</h3>
+                            <p>Build trust with customer testimonials and reviews</p>
+                            <button class="button">Add Block</button>
+                        </div>
+                        <div class="block fade-in">
+                            <h3>Product Gallery</h3>
+                            <p>Display your products in a beautiful, responsive gallery</p>
+                            <button class="button">Add Block</button>
+                        </div>
+                        <div class="block fade-in">
+                            <h3>Contact Form</h3>
+                            <p>Add a customizable contact form for inquiries</p>
+                            <button class="button">Add Block</button>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section class="quick-actions">
-                    <h2>Quick Actions</h2>
-                    <div class="action-buttons">
-                        <button class="btn primary">Update Hours</button>
-                        <button class="btn">Add New Item</button>
-                        <button class="btn">Preview Website</button>
-                        <button class="btn">Generate AI Content</button>
-                    </div>
-                </section>
-
-                <section class="business-details">
-                    <h2>Business Details</h2>
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <h3>Business Name</h3>
-                            <p>Sample Store</p>
+            <section id="preview" class="section site-preview">
+                <div class="container">
+                    <h2>Site Preview</h2>
+                    <div class="preview-area">
+                        <div class="preview-content">
+                            <!-- Preview content will be inserted here -->
                         </div>
-                        <div class="detail-item">
-                            <h3>Location</h3>
-                            <p>123 Main Street, City, State</p>
-                        </div>
-                        <div class="detail-item">
-                            <h3>Contact</h3>
-                            <p>contact@samplestore.com</p>
-                        </div>
-                        <div class="detail-item">
-                            <h3>Website</h3>
-                            <p>www.samplestore.com</p>
+                        <div class="preview-controls">
+                            <button class="button">Desktop</button>
+                            <button class="button">Tablet</button>
+                            <button class="button">Mobile</button>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 AI Site Builder. Built with modern web technologies.</p>
+            </div>
+        </footer>
     </div>
-    <script src="js/main.js"></script>
+
+    <script src="js/app.js"></script>
 </body>
 </html>

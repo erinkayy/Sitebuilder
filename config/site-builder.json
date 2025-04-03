@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "blockTypes": {
+    "hero": {
+      "name": "Hero Section",
+      "description": "A large banner section typically used at the top of a page",
+      "allowedResources": ["images", "text", "buttons"],
+      "defaultConfig": {
+        "layout": "centered",
+        "height": "large"
+      }
+    },
+    "product": {
+      "name": "Product Display",
+      "description": "Display products in a grid or list format",
+      "allowedResources": ["products", "images", "text", "prices"],
+      "defaultConfig": {
+        "layout": "grid",
+        "productsPerRow": 3
+      }
+    },
+    "content": {
+      "name": "Content Block",
+      "description": "General content section with text and media",
+      "allowedResources": ["text", "images", "video"],
+      "defaultConfig": {
+        "layout": "text-media",
+        "mediaPosition": "right"
+      }
+    },
+    "collection": {
+      "name": "Collection Grid",
+      "description": "Display a collection of products or content",
+      "allowedResources": ["collections", "products", "images"],
+      "defaultConfig": {
+        "layout": "masonry",
+        "itemsPerRow": 4
+      }
+    }
+  },
+  "aiCapabilities": {
+    "contentGeneration": {
+      "enabled": true,
+      "models": ["gpt-4", "claude-3"],
+      "features": ["copywriting", "imagePrompts", "layoutSuggestions"]
+    },
+    "styleGeneration": {
+      "enabled": true,
+      "features": ["colorSchemes", "typography", "spacing"]
+    },
+    "interactionModes": {
+      "guided": {
+        "enabled": true,
+        "steps": [
+          "projectGoals",
+          "brandIdentity",
+          "contentStructure",
+          "designPreferences"
+        ]
+      },
+      "conversational": {
+        "enabled": true,
+        "contextAware": true,
+        "memory": true
+      }
+    }
+  }
+}
