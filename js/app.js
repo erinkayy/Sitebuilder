@@ -1,23 +1,26 @@
-// Enhanced AI Site Builder with Advanced Simulation and Block System Integration
+// Enhanced AI Site Builder with Advanced Simulation and Workflow Management
 class AIBuilder {
     constructor() {
         this.state = {
             currentStep: 0,
+            workflow: 'homepage',
+            commerceType: null,
             projectData: {
                 goals: null,
                 brand: null,
                 content: null,
-                design: null
+                design: null,
+                commerce: null
             },
             aiContext: {},
             suggestions: []
         };
         
-        this.steps = [
+        this.homepageSteps = [
             {
                 id: 'goals',
                 title: 'Project Goals',
-                prompt: 'What kind of website are you looking to create? Describe your goals and target audience.',
+                prompt: 'What kind of website are you looking to create? Tell me about your project's goals and target audience.',
                 aiContext: 'You are analyzing website project requirements'
             },
             {
@@ -40,6 +43,34 @@ class AIBuilder {
             }
         ];
 
+        this.commerceSteps = [
+            {
+                id: 'commerce_type',
+                title: 'Commerce Setup',
+                prompt: 'Tell me about your products or services. What type of commerce features do you need?',
+                aiContext: 'You are an e-commerce specialist'
+            },
+            {
+                id: 'catalog',
+                title: 'Product Catalog',
+                prompt: 'Describe your products or services in detail. Include categories, pricing, and key features.',
+                aiContext: 'You are a product catalog expert'
+            },
+            {
+                id: 'checkout',
+                title: 'Checkout Process',
+                prompt: 'What payment methods and shipping options would you like to offer?',
+                aiContext: 'You are a payment processing specialist'
+            },
+            {
+                id: 'inventory',
+                title: 'Inventory Management',
+                prompt: 'How would you like to manage your inventory and track orders?',
+                aiContext: 'You are an inventory management expert'
+            }
+        ];
+
+        this.steps = this.homepageSteps;
         this.init();
     }
 
@@ -47,47 +78,23 @@ class AIBuilder {
         this.setupEventListeners();
         this.loadSavedState();
         this.initializeAI();
-        this.initializeBlockSystem();
-    }
-
-    initializeBlockSystem() {
-        // Initialize preview area
-        const previewContent = document.querySelector('.preview-content');
-        if (previewContent) {
-            previewContent.innerHTML = '<div class="preview-placeholder">Your site preview will appear here</div>';
-        }
-
-        // Setup preview controls
-        const previewControls = document.querySelectorAll('.preview-controls-left .button');
-        previewControls.forEach(control => {
-            control.addEventListener('click', (e) => {
-                const mode = e.target.textContent.toLowerCase();
-                this.updatePreviewMode(mode);
-            });
-        });
-    }
-
-    updatePreviewMode(mode) {
-        const previewArea = document.querySelector('.preview-area');
-        if (!previewArea) return;
-
-        // Remove existing mode classes
-        previewArea.classList.remove('preview-desktop', 'preview-tablet', 'preview-mobile');
-        
-        // Add new mode class
-        previewArea.classList.add(`preview-${mode}`);
-
-        // Update buttons
-        const buttons = document.querySelectorAll('.preview-controls-left .button');
-        buttons.forEach(button => {
-            button.classList.remove('active');
-            if (button.textContent.toLowerCase() === mode) {
-                button.classList.add('active');
-            }
-        });
     }
 
     setupEventListeners() {
+        // Workflow Selection
+        document.querySelectorAll('.workflow-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                this.switchWorkflow(e.currentTarget.dataset.workflow);
+            });
+        });
+
+        // Commerce Type Selection
+        document.querySelectorAll('.commerce-type').forEach(type => {
+            type.addEventListener('click', (e) => {
+                this.selectCommerceType(e.currentTarget.dataset.type);
+            });
+        });
+
         // Navigation
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -101,7 +108,7 @@ class AIBuilder {
             });
         });
 
-        // Guided Experience
+        // Step Navigation
         const nextButton = document.querySelector('.step .button');
         if (nextButton) {
             nextButton.addEventListener('click', () => this.handleNextStep());
@@ -116,8 +123,47 @@ class AIBuilder {
         });
     }
 
+    switchWorkflow(workflow) {
+        // Update active state
+        document.querySelectorAll('.workflow-option').forEach(option => {
+            option.classList.toggle('active', option.dataset.workflow === workflow);
+        });
+
+        // Update state
+        this.state.workflow = workflow;
+        this.state.currentStep = 0;
+        this.steps = workflow === 'homepage' ? this.homepageSteps : this.commerceSteps;
+
+        // Show/hide appropriate steps
+        document.getElementById('homepageSteps').style.display = workflow === 'homepage' ? 'block' : 'none';
+        document.getElementById('commerceSteps').style.display = workflow === 'commerce' ? 'block' : 'none';
+
+        // Reset and update UI
+        this.updateStepUI();
+    }
+
+    selectCommerceType(type) {
+        // Update selected state
+        document.querySelectorAll('.commerce-type').forEach(button => {
+            button.classList.toggle('selected', button.dataset.type === type);
+        });
+
+        // Update state
+        this.state.commerceType = type;
+        this.state.projectData.commerce = { type };
+
+        // Enable next button
+        const nextButton = document.querySelector('#commerceSteps .button');
+        if (nextButton) {
+            nextButton.disabled = false;
+        }
+    }
+
     async handleNextStep() {
-        const textarea = document.querySelector('.step textarea');
+        const currentStepsContainer = document.getElementById(
+            this.state.workflow === 'homepage' ? 'homepageSteps' : 'commerceSteps'
+        );
+        const textarea = currentStepsContainer.querySelector('.step textarea');
         const input = textarea.value.trim();
         
         if (input) {
@@ -148,7 +194,10 @@ class AIBuilder {
     }
 
     showAIThinking() {
-        const aiResponse = document.querySelector('.ai-response');
+        const currentStepsContainer = document.getElementById(
+            this.state.workflow === 'homepage' ? 'homepageSteps' : 'commerceSteps'
+        );
+        const aiResponse = currentStepsContainer.querySelector('.ai-response');
         if (aiResponse) {
             aiResponse.innerHTML = `
                 <div class="ai-thinking">
@@ -167,18 +216,121 @@ class AIBuilder {
         // Simulate AI processing with different personalities based on step
         return new Promise(resolve => {
             setTimeout(() => {
-                const responses = {
-                    goals: this.analyzeProjectGoals(input),
-                    brand: this.analyzeBrandIdentity(input),
-                    content: this.analyzeContentStrategy(input),
-                    design: this.analyzeDesignPreferences(input)
-                };
-
-                resolve(responses[step.id]);
+                if (this.state.workflow === 'homepage') {
+                    const responses = {
+                        goals: this.analyzeProjectGoals(input),
+                        brand: this.analyzeBrandIdentity(input),
+                        content: this.analyzeContentStrategy(input),
+                        design: this.analyzeDesignPreferences(input)
+                    };
+                    resolve(responses[step.id]);
+                } else {
+                    const responses = {
+                        commerce_type: this.analyzeCommerceType(input),
+                        catalog: this.analyzeProductCatalog(input),
+                        checkout: this.analyzeCheckoutProcess(input),
+                        inventory: this.analyzeInventoryManagement(input)
+                    };
+                    resolve(responses[step.id]);
+                }
             }, 2000);
         });
     }
 
+    // Commerce analysis methods
+    analyzeCommerceType(input) {
+        return {
+            type: 'commerce_type',
+            analysis: {
+                type: this.state.commerceType,
+                features: this.identifyCommerceFeatures(input),
+                requirements: this.determineCommerceRequirements(input)
+            },
+            suggestions: this.generateCommerceFeatureSuggestions(input)
+        };
+    }
+
+    analyzeProductCatalog(input) {
+        return {
+            type: 'catalog',
+            analysis: {
+                categories: this.identifyProductCategories(input),
+                attributes: this.determineProductAttributes(input),
+                pricing: this.analyzePricingStrategy(input)
+            },
+            suggestions: this.generateCatalogSuggestions(input)
+        };
+    }
+
+    analyzeCheckoutProcess(input) {
+        return {
+            type: 'checkout',
+            analysis: {
+                payments: this.identifyPaymentMethods(input),
+                shipping: this.determineShippingOptions(input),
+                workflow: this.analyzeCheckoutFlow(input)
+            },
+            suggestions: this.generateCheckoutSuggestions(input)
+        };
+    }
+
+    analyzeInventoryManagement(input) {
+        return {
+            type: 'inventory',
+            analysis: {
+                tracking: this.identifyTrackingMethods(input),
+                automation: this.determineAutomationNeeds(input),
+                integration: this.analyzeIntegrationRequirements(input)
+            },
+            suggestions: this.generateInventorySuggestions(input)
+        };
+    }
+
+    // Commerce helper methods
+    identifyCommerceFeatures(input) {
+        const features = [];
+        if (input.match(/cart|basket|shopping/i)) features.push('shopping_cart');
+        if (input.match(/wish|favorite|save/i)) features.push('wishlists');
+        if (input.match(/review|rating/i)) features.push('reviews');
+        if (input.match(/discount|coupon|promo/i)) features.push('promotions');
+        return features;
+    }
+
+    determineCommerceRequirements(input) {
+        const requirements = [];
+        if (input.match(/inventory|stock/i)) requirements.push('inventory_management');
+        if (input.match(/shipping|delivery/i)) requirements.push('shipping_calculator');
+        if (input.match(/tax|vat/i)) requirements.push('tax_calculator');
+        if (input.match(/analytics|tracking/i)) requirements.push('analytics');
+        return requirements;
+    }
+
+    generateCommerceFeatureSuggestions(input) {
+        const suggestions = [];
+        const type = this.state.commerceType;
+
+        if (type === 'products') {
+            suggestions.push('Add product variants (size, color, etc.)');
+            suggestions.push('Include bulk pricing options');
+            suggestions.push('Enable inventory tracking');
+        } else if (type === 'digital') {
+            suggestions.push('Add download management');
+            suggestions.push('Include license key generation');
+            suggestions.push('Enable access control');
+        } else if (type === 'services') {
+            suggestions.push('Add booking/scheduling system');
+            suggestions.push('Include service packages');
+            suggestions.push('Enable availability calendar');
+        } else if (type === 'subscriptions') {
+            suggestions.push('Add subscription plans');
+            suggestions.push('Include billing cycle options');
+            suggestions.push('Enable automatic renewals');
+        }
+
+        return suggestions;
+    }
+
+    // Existing analysis methods
     analyzeProjectGoals(input) {
         const keywords = this.extractKeywords(input);
         const audience = this.identifyTargetAudience(input);
@@ -293,12 +445,23 @@ class AIBuilder {
             [response.type]: response.analysis
         };
         
-        this.state.projectData[response.type] = response.analysis;
+        if (this.state.workflow === 'homepage') {
+            this.state.projectData[response.type] = response.analysis;
+        } else {
+            this.state.projectData.commerce = {
+                ...this.state.projectData.commerce,
+                [response.type]: response.analysis
+            };
+        }
+        
         this.saveState();
     }
 
     updateUIWithAIResponse(response) {
-        const aiResponse = document.querySelector('.ai-response');
+        const currentStepsContainer = document.getElementById(
+            this.state.workflow === 'homepage' ? 'homepageSteps' : 'commerceSteps'
+        );
+        const aiResponse = currentStepsContainer.querySelector('.ai-response');
         if (aiResponse) {
             aiResponse.innerHTML = `
                 <h4>AI Analysis</h4>
@@ -335,17 +498,22 @@ class AIBuilder {
             this.state.currentStep++;
             this.updateStepUI();
         } else {
-            this.completeGuidedExperience();
+            this.completeWorkflow();
         }
     }
 
     updateStepUI() {
+        const currentStepsContainer = document.getElementById(
+            this.state.workflow === 'homepage' ? 'homepageSteps' : 'commerceSteps'
+        );
         const step = this.steps[this.state.currentStep];
-        const stepElement = document.querySelector('.step');
+        const stepElement = currentStepsContainer.querySelector('.step');
+        
         if (stepElement) {
             stepElement.innerHTML = `
                 <h3>${step.title}</h3>
                 <p>${step.prompt}</p>
+                ${step.id === 'commerce_type' ? this.renderCommerceTypeSelector() : ''}
                 <textarea placeholder="Type your response here..."></textarea>
                 <div class="ai-response"></div>
                 <button class="button">Next</button>
@@ -353,10 +521,47 @@ class AIBuilder {
         }
     }
 
-    completeGuidedExperience() {
+    renderCommerceTypeSelector() {
+        return `
+            <div class="commerce-type-selector">
+                <button class="commerce-type" data-type="products">
+                    <span class="type-icon">📦</span>
+                    <span class="type-label">Physical Products</span>
+                </button>
+                <button class="commerce-type" data-type="digital">
+                    <span class="type-icon">💾</span>
+                    <span class="type-label">Digital Products</span>
+                </button>
+                <button class="commerce-type" data-type="services">
+                    <span class="type-icon">🔧</span>
+                    <span class="type-label">Services</span>
+                </button>
+                <button class="commerce-type" data-type="subscriptions">
+                    <span class="type-icon">🔄</span>
+                    <span class="type-label">Subscriptions</span>
+                </button>
+            </div>
+        `;
+    }
+
+    completeWorkflow() {
+        if (this.state.workflow === 'homepage') {
+            this.completeHomepageSetup();
+        } else {
+            this.completeCommerceSetup();
+        }
+    }
+
+    completeHomepageSetup() {
         // Generate final recommendations and transition to builder
         const recommendations = this.generateFinalRecommendations();
         this.transitionToBuilder(recommendations);
+    }
+
+    completeCommerceSetup() {
+        // Generate commerce-specific recommendations
+        const recommendations = this.generateCommerceRecommendations();
+        this.transitionToCommerceBuilder(recommendations);
     }
 
     generateFinalRecommendations() {
@@ -368,6 +573,15 @@ class AIBuilder {
         };
     }
 
+    generateCommerceRecommendations() {
+        return {
+            features: this.suggestCommerceFeatures(),
+            layout: this.suggestCommerceLayout(),
+            integration: this.suggestIntegrations(),
+            workflow: this.suggestCheckoutWorkflow()
+        };
+    }
+
     saveState() {
         localStorage.setItem('aibuilder_state', JSON.stringify(this.state));
     }
@@ -376,32 +590,12 @@ class AIBuilder {
         const saved = localStorage.getItem('aibuilder_state');
         if (saved) {
             this.state = JSON.parse(saved);
+            this.steps = this.state.workflow === 'homepage' ? this.homepageSteps : this.commerceSteps;
             this.updateUIFromState();
         }
     }
 
-    addBlock(blockType) {
-        const template = window.blockSystem.getBlockTemplate(blockType.toLowerCase().replace(/\s+/g, ''));
-        if (!template) {
-            console.error(`Block type "${blockType}" not found`);
-            return;
-        }
-
-        // Add block to the block system
-        const block = window.blockSystem.addBlock(blockType.toLowerCase().replace(/\s+/g, ''));
-        
-        // Update preview
-        this.updatePreview();
-    }
-
-    updatePreview() {
-        const previewContent = document.querySelector('.preview-content');
-        if (previewContent) {
-            previewContent.innerHTML = window.blockSystem.renderAllBlocks();
-        }
-    }
-
-    // Placeholder methods for AI analysis
+    // Placeholder methods
     suggestLayout() { return {}; }
     suggestColorScheme() { return {}; }
     suggestBlocks() { return []; }
@@ -421,6 +615,23 @@ class AIBuilder {
     initializeAI() {}
     updateUIFromState() {}
     transitionToBuilder() {}
+    transitionToCommerceBuilder() {}
+    suggestCommerceFeatures() { return {}; }
+    suggestCommerceLayout() { return {}; }
+    suggestIntegrations() { return []; }
+    suggestCheckoutWorkflow() { return {}; }
+    identifyProductCategories() { return []; }
+    determineProductAttributes() { return {}; }
+    analyzePricingStrategy() { return {}; }
+    generateCatalogSuggestions() { return []; }
+    identifyPaymentMethods() { return []; }
+    determineShippingOptions() { return []; }
+    analyzeCheckoutFlow() { return {}; }
+    generateCheckoutSuggestions() { return []; }
+    identifyTrackingMethods() { return []; }
+    determineAutomationNeeds() { return {}; }
+    analyzeIntegrationRequirements() { return {}; }
+    generateInventorySuggestions() { return []; }
 }
 
 // Initialize the builder when the page loads

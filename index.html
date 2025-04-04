@@ -29,11 +29,56 @@
             <section id="guided" class="section guided-experience">
                 <div class="container">
                     <h2>Guided Experience</h2>
-                    <div class="steps">
+                    <div class="workflow-selector">
+                        <button class="workflow-option active" data-workflow="homepage">
+                            <div class="workflow-icon">🏠</div>
+                            <div class="workflow-content">
+                                <h3>Homepage Builder</h3>
+                                <p>Create your main website with AI-guided design and content</p>
+                            </div>
+                        </button>
+                        <button class="workflow-option" data-workflow="commerce">
+                            <div class="workflow-icon">🛍️</div>
+                            <div class="workflow-content">
+                                <h3>Commerce Features</h3>
+                                <p>Add product catalog, shopping cart, and payment processing</p>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="steps" id="homepageSteps">
                         <div class="step fade-in">
                             <h3>Project Goals</h3>
                             <p>What kind of website are you looking to create? Tell me about your project's goals and target audience.</p>
                             <textarea placeholder="Describe your project goals..."></textarea>
+                            <div class="ai-response">
+                                <!-- AI responses will be inserted here -->
+                            </div>
+                            <button class="button">Next</button>
+                        </div>
+                    </div>
+                    <div class="steps" id="commerceSteps" style="display: none;">
+                        <div class="step fade-in">
+                            <h3>Commerce Setup</h3>
+                            <p>Tell me about your products or services. What type of commerce features do you need?</p>
+                            <div class="commerce-type-selector">
+                                <button class="commerce-type" data-type="products">
+                                    <span class="type-icon">📦</span>
+                                    <span class="type-label">Physical Products</span>
+                                </button>
+                                <button class="commerce-type" data-type="digital">
+                                    <span class="type-icon">💾</span>
+                                    <span class="type-label">Digital Products</span>
+                                </button>
+                                <button class="commerce-type" data-type="services">
+                                    <span class="type-icon">🔧</span>
+                                    <span class="type-label">Services</span>
+                                </button>
+                                <button class="commerce-type" data-type="subscriptions">
+                                    <span class="type-icon">🔄</span>
+                                    <span class="type-label">Subscriptions</span>
+                                </button>
+                            </div>
+                            <textarea placeholder="Describe your products or services..."></textarea>
                             <div class="ai-response">
                                 <!-- AI responses will be inserted here -->
                             </div>
