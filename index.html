@@ -3,303 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Site Builder</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/blocks.css" rel="stylesheet">
-    <link href="css/modal.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>AI Site Builder - Retail Website Setup</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="app">
-        <header class="header">
-            <div class="container">
-                <h1>AI Site Builder</h1>
-                <nav>
-                    <ul>
-                        <li><a href="#guided" class="active">Guided Setup</a></li>
-                        <li><a href="#blocks">Blocks</a></li>
-                        <li><a href="#preview">Preview</a></li>
-                    </ul>
-                </nav>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>AI Site Builder</h1>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+                <div class="step-indicators">
+                    <div class="step active" data-step="1">1</div>
+                    <div class="step" data-step="2">2</div>
+                    <div class="step" data-step="3">3</div>
+                    <div class="step" data-step="4">4</div>
+                    <div class="step" data-step="5">5</div>
+                </div>
             </div>
         </header>
 
-        <main class="main">
-            <section id="guided" class="section guided-experience">
-                <div class="container">
-                    <h2>Guided Experience</h2>
-                    <div class="workflow-selector">
-                        <button class="workflow-option active" data-workflow="homepage">
-                            <div class="workflow-icon">🏠</div>
-                            <div class="workflow-content">
-                                <h3>Homepage Builder</h3>
-                                <p>Create your main website with AI-guided design and content</p>
-                            </div>
-                        </button>
-                        <button class="workflow-option" data-workflow="commerce">
-                            <div class="workflow-icon">🛍️</div>
-                            <div class="workflow-content">
-                                <h3>Commerce Features</h3>
-                                <p>Add product catalog, shopping cart, and payment processing</p>
-                            </div>
-                        </button>
+        <main class="onboarding-container">
+            <!-- Step 1: AI Prompt Configuration -->
+            <section class="onboarding-step active" id="step1">
+                <h2>Let's Start with AI Configuration</h2>
+                <div class="step-content">
+                    <div class="input-group">
+                        <label for="businessName">What's your business name?</label>
+                        <input type="text" id="businessName" placeholder="e.g., Fashion Boutique">
                     </div>
-                    <div class="steps" id="homepageSteps">
-                        <div class="step fade-in">
-                            <h3>Project Goals</h3>
-                            <p>What kind of website are you looking to create? Tell me about your project's goals and target audience.</p>
-                            <textarea placeholder="Describe your project goals..."></textarea>
-                            <div class="ai-response">
-                                <!-- AI responses will be inserted here -->
+                    <div class="input-group">
+                        <label for="businessDescription">Describe your business</label>
+                        <textarea id="businessDescription" placeholder="Tell us about your products, target audience, and unique selling points..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="aiTone">Choose your AI communication style</label>
+                        <select id="aiTone">
+                            <option value="professional">Professional</option>
+                            <option value="friendly">Friendly</option>
+                            <option value="luxury">Luxury</option>
+                            <option value="casual">Casual</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Site Styles -->
+            <section class="onboarding-step" id="step2">
+                <h2>Design Your Site Style</h2>
+                <div class="step-content">
+                    <div class="style-selection">
+                        <div class="color-scheme">
+                            <h3>Color Scheme</h3>
+                            <div class="color-options">
+                                <div class="color-picker">
+                                    <label>Primary Color</label>
+                                    <input type="color" id="primaryColor">
+                                </div>
+                                <div class="color-picker">
+                                    <label>Secondary Color</label>
+                                    <input type="color" id="secondaryColor">
+                                </div>
+                                <div class="color-picker">
+                                    <label>Accent Color</label>
+                                    <input type="color" id="accentColor">
+                                </div>
                             </div>
-                            <button class="button">Next</button>
                         </div>
-                    </div>
-                    <div class="steps" id="commerceSteps" style="display: none;">
-                        <div class="step fade-in">
-                            <h3>Commerce Setup</h3>
-                            <p>Tell me about your products or services. What type of commerce features do you need?</p>
-                            <div class="commerce-type-selector">
-                                <button class="commerce-type" data-type="products">
-                                    <span class="type-icon">📦</span>
-                                    <span class="type-label">Physical Products</span>
-                                </button>
-                                <button class="commerce-type" data-type="digital">
-                                    <span class="type-icon">💾</span>
-                                    <span class="type-label">Digital Products</span>
-                                </button>
-                                <button class="commerce-type" data-type="services">
-                                    <span class="type-icon">🔧</span>
-                                    <span class="type-label">Services</span>
-                                </button>
-                                <button class="commerce-type" data-type="subscriptions">
-                                    <span class="type-icon">🔄</span>
-                                    <span class="type-label">Subscriptions</span>
-                                </button>
+                        <div class="font-selection">
+                            <h3>Typography</h3>
+                            <select id="headingFont">
+                                <option value="modern">Modern</option>
+                                <option value="classic">Classic</option>
+                                <option value="bold">Bold</option>
+                            </select>
+                        </div>
+                        <div class="layout-selection">
+                            <h3>Layout Style</h3>
+                            <div class="layout-options">
+                                <button class="layout-option" data-layout="minimal">Minimal</button>
+                                <button class="layout-option" data-layout="classic">Classic</button>
+                                <button class="layout-option" data-layout="modern">Modern</button>
                             </div>
-                            <textarea placeholder="Describe your products or services..."></textarea>
-                            <div class="ai-response">
-                                <!-- AI responses will be inserted here -->
-                            </div>
-                            <button class="button">Next</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="blocks" class="section block-library">
-                <div class="container">
-                    <h2>Block Library</h2>
-                    <div class="blocks-grid">
-                        <div class="block fade-in">
-                            <h3>Hero Section</h3>
-                            <p>Create a stunning first impression with a dynamic hero section</p>
-                            <button class="button">Add Block</button>
+            <!-- Step 3: Catalog Sync -->
+            <section class="onboarding-step" id="step3">
+                <h2>Connect Your Product Catalog</h2>
+                <div class="step-content">
+                    <div class="catalog-options">
+                        <h3>Choose Your Catalog Source</h3>
+                        <div class="integration-options">
+                            <button class="integration-option">
+                                <img src="img/shopify-icon.svg" alt="Shopify">
+                                <span>Shopify</span>
+                            </button>
+                            <button class="integration-option">
+                                <img src="img/woo-icon.svg" alt="WooCommerce">
+                                <span>WooCommerce</span>
+                            </button>
+                            <button class="integration-option">
+                                <img src="img/csv-icon.svg" alt="CSV Upload">
+                                <span>CSV Upload</span>
+                            </button>
                         </div>
-                        <div class="block fade-in">
-                            <h3>Feature Grid</h3>
-                            <p>Showcase your key features or services in an elegant grid</p>
-                            <button class="button">Add Block</button>
-                        </div>
-                        <div class="block fade-in">
-                            <h3>Content Section</h3>
-                            <p>Add rich content with images, text, and calls to action</p>
-                            <button class="button">Add Block</button>
-                        </div>
-                        <div class="block fade-in">
-                            <h3>Testimonials</h3>
-                            <p>Build trust with customer testimonials and reviews</p>
-                            <button class="button">Add Block</button>
-                        </div>
-                        <div class="block fade-in">
-                            <h3>Product Gallery</h3>
-                            <p>Display your products in a beautiful, responsive gallery</p>
-                            <button class="button">Add Block</button>
-                        </div>
-                        <div class="block fade-in">
-                            <h3>Contact Form</h3>
-                            <p>Add a customizable contact form for inquiries</p>
-                            <button class="button">Add Block</button>
+                        <div class="catalog-sync-status">
+                            <div class="sync-progress hidden">
+                                <div class="progress-bar"></div>
+                                <span class="sync-status">Syncing products...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="preview" class="section site-preview">
-                <div class="container">
-                    <h2>Site Preview</h2>
-                    <div class="preview-area">
-                                <div class="preview-controls">
-                            <div class="preview-controls-left">
-                                <button class="button">Desktop</button>
-                                <button class="button">Tablet</button>
-                                <button class="button">Mobile</button>
-                            </div>
-                            <div class="preview-controls-right">
-                                <button class="button button-secondary" id="siteStylesBtn">Site Styles</button>
+            <!-- Step 4: Homepage Builder -->
+            <section class="onboarding-step" id="step4">
+                <h2>Design Your Homepage</h2>
+                <div class="step-content">
+                    <div class="homepage-sections">
+                        <div class="section-selector">
+                            <h3>Choose Your Sections</h3>
+                            <div class="section-options">
+                                <div class="section-option">
+                                    <input type="checkbox" id="hero" checked>
+                                    <label for="hero">Hero Banner</label>
+                                </div>
+                                <div class="section-option">
+                                    <input type="checkbox" id="featured">
+                                    <label for="featured">Featured Products</label>
+                                </div>
+                                <div class="section-option">
+                                    <input type="checkbox" id="categories">
+                                    <label for="categories">Product Categories</label>
+                                </div>
+                                <div class="section-option">
+                                    <input type="checkbox" id="about">
+                                    <label for="about">About Section</label>
+                                </div>
+                                <div class="section-option">
+                                    <input type="checkbox" id="testimonials">
+                                    <label for="testimonials">Testimonials</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="preview-content">
-                            <!-- Preview content will be inserted here -->
+                        <div class="layout-preview">
+                            <h3>Layout Preview</h3>
+                            <div class="preview-container">
+                                <!-- Dynamic preview will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: Commerce Features -->
+            <section class="onboarding-step" id="step5">
+                <h2>Configure Commerce Features</h2>
+                <div class="step-content">
+                    <div class="commerce-features">
+                        <div class="feature-group">
+                            <h3>Shopping Experience</h3>
+                            <div class="feature-options">
+                                <div class="feature-option">
+                                    <input type="checkbox" id="quickView">
+                                    <label for="quickView">Quick View</label>
+                                </div>
+                                <div class="feature-option">
+                                    <input type="checkbox" id="wishlist">
+                                    <label for="wishlist">Wishlist</label>
+                                </div>
+                                <div class="feature-option">
+                                    <input type="checkbox" id="compare">
+                                    <label for="compare">Compare Products</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-group">
+                            <h3>Checkout Options</h3>
+                            <div class="feature-options">
+                                <div class="feature-option">
+                                    <input type="checkbox" id="guestCheckout">
+                                    <label for="guestCheckout">Guest Checkout</label>
+                                </div>
+                                <div class="feature-option">
+                                    <input type="checkbox" id="expressCheckout">
+                                    <label for="expressCheckout">Express Checkout</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="footer">
-            <div class="container">
-                <p>&copy; 2025 AI Site Builder. Built with modern web technologies.</p>
-            </div>
+        <footer class="onboarding-footer">
+            <button class="btn btn-secondary" id="prevStep" disabled>Previous</button>
+            <button class="btn btn-primary" id="nextStep">Next</button>
         </footer>
     </div>
 
-    <!-- Site Styles Modal -->
-    <div class="modal" id="siteStylesModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Site Styles</h2>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="style-sections">
-                    <!-- Color Theme -->
-                    <div class="style-section">
-                        <h3>Color Theme</h3>
-                        <div class="color-presets">
-                            <button class="color-preset" data-theme="modern">
-                                <span class="color-preview" style="background: linear-gradient(45deg, #2196f3, #f50057)"></span>
-                                Modern
-                            </button>
-                            <button class="color-preset" data-theme="elegant">
-                                <span class="color-preview" style="background: linear-gradient(45deg, #9c27b0, #ff9800)"></span>
-                                Elegant
-                            </button>
-                            <button class="color-preset" data-theme="natural">
-                                <span class="color-preview" style="background: linear-gradient(45deg, #4caf50, #cddc39)"></span>
-                                Natural
-                            </button>
-                            <button class="color-preset" data-theme="bold">
-                                <span class="color-preview" style="background: linear-gradient(45deg, #f44336, #ff9800)"></span>
-                                Bold
-                            </button>
-                        </div>
-                        <div class="custom-colors">
-                            <div class="color-input">
-                                <label>Primary Color</label>
-                                <input type="color" id="primaryColor" value="#2196f3">
-                            </div>
-                            <div class="color-input">
-                                <label>Secondary Color</label>
-                                <input type="color" id="secondaryColor" value="#f50057">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Typography -->
-                    <div class="style-section">
-                        <h3>Typography</h3>
-                        <div class="font-presets">
-                            <button class="font-preset" data-font="modern">
-                                <span class="font-preview" style="font-family: 'Inter'">Aa</span>
-                                Modern Sans
-                            </button>
-                            <button class="font-preset" data-font="classic">
-                                <span class="font-preview" style="font-family: 'Merriweather'">Aa</span>
-                                Classic Serif
-                            </button>
-                            <button class="font-preset" data-font="minimal">
-                                <span class="font-preview" style="font-family: 'Space Grotesk'">Aa</span>
-                                Minimal
-                            </button>
-                            <button class="font-preset" data-font="creative">
-                                <span class="font-preview" style="font-family: 'Plus Jakarta Sans'">Aa</span>
-                                Creative
-                            </button>
-                        </div>
-                        <div class="typography-controls">
-                            <div class="font-size-control">
-                                <label>Base Font Size</label>
-                                <div class="size-inputs">
-                                    <button class="size-preset" data-size="small">Small</button>
-                                    <button class="size-preset active" data-size="medium">Medium</button>
-                                    <button class="size-preset" data-size="large">Large</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Layout & Spacing -->
-                    <div class="style-section">
-                        <h3>Layout & Spacing</h3>
-                        <div class="layout-presets">
-                            <button class="layout-preset" data-layout="comfortable">
-                                <span class="layout-preview comfortable"></span>
-                                Comfortable
-                            </button>
-                            <button class="layout-preset" data-layout="compact">
-                                <span class="layout-preview compact"></span>
-                                Compact
-                            </button>
-                            <button class="layout-preset" data-layout="spacious">
-                                <span class="layout-preview spacious"></span>
-                                Spacious
-                            </button>
-                        </div>
-                        <div class="layout-controls">
-                            <div class="spacing-control">
-                                <label>Content Width</label>
-                                <input type="range" id="contentWidth" min="800" max="1400" value="1200">
-                                <div class="range-labels">
-                                    <span>Narrow</span>
-                                    <span>Wide</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Effects & Animation -->
-                    <div class="style-section">
-                        <h3>Effects & Animation</h3>
-                        <div class="effects-options">
-                            <div class="effect-toggle">
-                                <label>
-                                    <input type="checkbox" id="enableShadows" checked>
-                                    Shadows
-                                </label>
-                            </div>
-                            <div class="effect-toggle">
-                                <label>
-                                    <input type="checkbox" id="enableRounded" checked>
-                                    Rounded Corners
-                                </label>
-                            </div>
-                            <div class="effect-toggle">
-                                <label>
-                                    <input type="checkbox" id="enableAnimations" checked>
-                                    Animations
-                                </label>
-                            </div>
-                            <div class="effect-toggle">
-                                <label>
-                                    <input type="checkbox" id="enableGlass" checked>
-                                    Glass Effect
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="button button-secondary" id="resetStyles">Reset to Default</button>
-                <button class="button" id="applyStyles">Apply Styles</button>
-            </div>
-        </div>
-    </div>
-
     <script src="js/app.js"></script>
-    <script src="js/blocks.js"></script>
-    <script src="js/styles.js"></script>
 </body>
 </html>
