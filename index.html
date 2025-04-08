@@ -25,24 +25,36 @@
         <main class="onboarding-container">
             <!-- Step 1: AI Prompt Configuration -->
             <section class="onboarding-step active" id="step1">
-                <h2>Let's Start with AI Configuration</h2>
+                <h2>Let's Create Your AI-Powered Store</h2>
                 <div class="step-content">
-                    <div class="input-group">
-                        <label for="businessName">What's your business name?</label>
-                        <input type="text" id="businessName" placeholder="e.g., Fashion Boutique">
+                    <div class="ai-chat-interface">
+                        <div class="chat-messages" id="aiChat">
+                            <!-- AI messages will be inserted here -->
+                        </div>
+                        <div class="input-group chat-input">
+                            <input type="text" id="userInput" placeholder="Tell me about your business idea...">
+                            <button class="chat-send" id="sendMessage">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="businessDescription">Describe your business</label>
-                        <textarea id="businessDescription" placeholder="Tell us about your products, target audience, and unique selling points..."></textarea>
+                    <div class="ai-suggestions">
+                        <h3>Quick Starts</h3>
+                        <div class="suggestion-chips">
+                            <button class="chip">I sell handmade jewelry</button>
+                            <button class="chip">I'm opening a restaurant</button>
+                            <button class="chip">I have a fashion boutique</button>
+                            <button class="chip">I offer professional services</button>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="aiTone">Choose your AI communication style</label>
-                        <select id="aiTone">
-                            <option value="professional">Professional</option>
-                            <option value="friendly">Friendly</option>
-                            <option value="luxury">Luxury</option>
-                            <option value="casual">Casual</option>
-                        </select>
+                    <div class="business-profile hidden" id="businessProfile">
+                        <h3>Your Business Profile</h3>
+                        <div class="profile-summary">
+                            <!-- Will be populated by AI -->
+                        </div>
+                        <button class="btn btn-edit">Edit Profile</button>
                     </div>
                 </div>
             </section>
@@ -51,10 +63,29 @@
             <section class="onboarding-step" id="step2">
                 <h2>Design Your Site Style</h2>
                 <div class="step-content">
-                    <div class="style-selection">
-                        <div class="color-scheme">
-                            <h3>Color Scheme</h3>
-                            <div class="color-options">
+                    <div class="ai-style-assistant">
+                        <div class="style-chat">
+                            <div class="ai-message">
+                                <p>Based on your business profile, I've generated some style suggestions that would work well for your brand. You can customize these or let me suggest alternatives.</p>
+                            </div>
+                        </div>
+                        <div class="style-preview">
+                            <div class="preview-header">
+                                <h3>Live Preview</h3>
+                                <button class="btn btn-secondary" id="regenerateStyle">Generate New Style</button>
+                            </div>
+                            <div class="preview-frame">
+                                <!-- Live preview will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="style-customization">
+                        <div class="style-section">
+                            <h3>Color Palette</h3>
+                            <div class="ai-generated-colors">
+                                <!-- AI generated color combinations -->
+                            </div>
+                            <div class="color-options advanced-hidden">
                                 <div class="color-picker">
                                     <label>Primary Color</label>
                                     <input type="color" id="primaryColor">
@@ -69,22 +100,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="font-selection">
-                            <h3>Typography</h3>
-                            <select id="headingFont">
-                                <option value="modern">Modern</option>
-                                <option value="classic">Classic</option>
-                                <option value="bold">Bold</option>
-                            </select>
-                        </div>
-                        <div class="layout-selection">
-                            <h3>Layout Style</h3>
-                            <div class="layout-options">
-                                <button class="layout-option" data-layout="minimal">Minimal</button>
-                                <button class="layout-option" data-layout="classic">Classic</button>
-                                <button class="layout-option" data-layout="modern">Modern</button>
+                        <div class="style-section">
+                            <h3>Typography & Layout</h3>
+                            <div class="ai-generated-styles">
+                                <!-- AI generated style combinations -->
+                            </div>
+                            <div class="advanced-controls advanced-hidden">
+                                <select id="headingFont">
+                                    <option value="modern">Modern</option>
+                                    <option value="classic">Classic</option>
+                                    <option value="bold">Bold</option>
+                                </select>
+                                <div class="layout-options">
+                                    <button class="layout-option" data-layout="minimal">Minimal</button>
+                                    <button class="layout-option" data-layout="classic">Classic</button>
+                                    <button class="layout-option" data-layout="modern">Modern</button>
+                                </div>
                             </div>
                         </div>
+                        <button class="btn btn-text" id="toggleAdvanced">Show Advanced Options</button>
                     </div>
                 </div>
             </section>
@@ -93,26 +127,68 @@
             <section class="onboarding-step" id="step3">
                 <h2>Connect Your Product Catalog</h2>
                 <div class="step-content">
-                    <div class="catalog-options">
-                        <h3>Choose Your Catalog Source</h3>
-                        <div class="integration-options">
-                            <button class="integration-option">
-                                <img src="img/shopify-icon.svg" alt="Shopify">
-                                <span>Shopify</span>
-                            </button>
-                            <button class="integration-option">
-                                <img src="img/woo-icon.svg" alt="WooCommerce">
-                                <span>WooCommerce</span>
-                            </button>
-                            <button class="integration-option">
-                                <img src="img/csv-icon.svg" alt="CSV Upload">
-                                <span>CSV Upload</span>
-                            </button>
+                    <div class="ai-catalog-assistant">
+                        <div class="catalog-chat">
+                            <div class="ai-message">
+                                <p>I can help you set up your product catalog. I'll guide you through importing your products and optimizing them for your store.</p>
+                            </div>
                         </div>
-                        <div class="catalog-sync-status">
-                            <div class="sync-progress hidden">
-                                <div class="progress-bar"></div>
-                                <span class="sync-status">Syncing products...</span>
+                        <div class="catalog-options">
+                            <h3>Choose Your Import Method</h3>
+                            <div class="import-methods">
+                                <div class="import-method">
+                                    <div class="method-header">
+                                        <img src="img/shopify-icon.svg" alt="Shopify">
+                                        <h4>Shopify</h4>
+                                    </div>
+                                    <p>Import directly from your Shopify store</p>
+                                    <button class="btn btn-connect">Connect Shopify</button>
+                                </div>
+                                <div class="import-method">
+                                    <div class="method-header">
+                                        <img src="img/csv-icon.svg" alt="CSV Upload">
+                                        <h4>Spreadsheet</h4>
+                                    </div>
+                                    <p>Upload a CSV or Excel file</p>
+                                    <div class="upload-zone" id="csvUpload">
+                                        <input type="file" accept=".csv,.xlsx" hidden>
+                                        <span>Drag & drop or click to upload</span>
+                                    </div>
+                                </div>
+                                <div class="import-method">
+                                    <div class="method-header">
+                                        <img src="img/ai-icon.svg" alt="AI Assistant">
+                                        <h4>AI Assistant</h4>
+                                    </div>
+                                    <p>Let me help you create your catalog</p>
+                                    <button class="btn btn-ai">Start AI Setup</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="catalog-preview hidden">
+                            <h3>Catalog Preview</h3>
+                            <div class="preview-stats">
+                                <div class="stat">
+                                    <span class="stat-value" id="productCount">0</span>
+                                    <span class="stat-label">Products</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="categoryCount">0</span>
+                                    <span class="stat-label">Categories</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="imageCount">0</span>
+                                    <span class="stat-label">Images</span>
+                                </div>
+                            </div>
+                            <div class="preview-grid">
+                                <!-- Product previews will be inserted here -->
+                            </div>
+                            <div class="optimization-suggestions">
+                                <h4>AI Suggestions</h4>
+                                <ul class="suggestions-list">
+                                    <!-- AI suggestions will be inserted here -->
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -123,36 +199,69 @@
             <section class="onboarding-step" id="step4">
                 <h2>Design Your Homepage</h2>
                 <div class="step-content">
-                    <div class="homepage-sections">
-                        <div class="section-selector">
-                            <h3>Choose Your Sections</h3>
-                            <div class="section-options">
-                                <div class="section-option">
-                                    <input type="checkbox" id="hero" checked>
-                                    <label for="hero">Hero Banner</label>
+                    <div class="ai-layout-assistant">
+                        <div class="layout-chat">
+                            <div class="ai-message">
+                                <p>Based on your business type and catalog, I've designed some homepage layouts. Let's customize them together.</p>
+                            </div>
+                        </div>
+                        <div class="layout-workspace">
+                            <div class="layout-preview">
+                                <div class="preview-header">
+                                    <h3>Visual Preview</h3>
+                                    <div class="preview-controls">
+                                        <button class="btn btn-icon" id="previewMobile" title="Mobile View">
+                                            <svg><!-- Mobile icon --></svg>
+                                        </button>
+                                        <button class="btn btn-icon active" id="previewDesktop" title="Desktop View">
+                                            <svg><!-- Desktop icon --></svg>
+                                        </button>
+                                        <button class="btn btn-secondary" id="regenerateLayout">Generate New Layout</button>
+                                    </div>
                                 </div>
-                                <div class="section-option">
-                                    <input type="checkbox" id="featured">
-                                    <label for="featured">Featured Products</label>
+                                <div class="preview-canvas">
+                                    <!-- Interactive preview will be rendered here -->
                                 </div>
-                                <div class="section-option">
-                                    <input type="checkbox" id="categories">
-                                    <label for="categories">Product Categories</label>
+                            </div>
+                            <div class="layout-sidebar">
+                                <div class="section-library">
+                                    <h3>Recommended Sections</h3>
+                                    <div class="section-recommendations">
+                                        <!-- AI recommended sections based on business type -->
+                                    </div>
+                                    <div class="section-list">
+                                        <div class="section-group">
+                                            <h4>Hero Options</h4>
+                                            <div class="section-options">
+                                                <!-- Hero section variations -->
+                                            </div>
+                                        </div>
+                                        <div class="section-group">
+                                            <h4>Featured Products</h4>
+                                            <div class="section-options">
+                                                <!-- Product section variations -->
+                                            </div>
+                                        </div>
+                                        <div class="section-group">
+                                            <h4>Content Sections</h4>
+                                            <div class="section-options">
+                                                <!-- Content section variations -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="section-option">
-                                    <input type="checkbox" id="about">
-                                    <label for="about">About Section</label>
-                                </div>
-                                <div class="section-option">
-                                    <input type="checkbox" id="testimonials">
-                                    <label for="testimonials">Testimonials</label>
+                                <div class="section-editor">
+                                    <h3>Customize Section</h3>
+                                    <div class="editor-content">
+                                        <!-- Section specific controls will appear here -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="layout-preview">
-                            <h3>Layout Preview</h3>
-                            <div class="preview-container">
-                                <!-- Dynamic preview will be rendered here -->
+                        <div class="ai-suggestions">
+                            <h3>AI Recommendations</h3>
+                            <div class="suggestion-cards">
+                                <!-- AI suggestions for layout improvements -->
                             </div>
                         </div>
                     </div>
@@ -163,36 +272,116 @@
             <section class="onboarding-step" id="step5">
                 <h2>Configure Commerce Features</h2>
                 <div class="step-content">
-                    <div class="commerce-features">
-                        <div class="feature-group">
-                            <h3>Shopping Experience</h3>
-                            <div class="feature-options">
-                                <div class="feature-option">
-                                    <input type="checkbox" id="quickView">
-                                    <label for="quickView">Quick View</label>
+                    <div class="ai-commerce-assistant">
+                        <div class="commerce-chat">
+                            <div class="ai-message">
+                                <p>Let's set up your commerce features. I'll recommend the best options based on your business type and customer needs.</p>
+                            </div>
+                        </div>
+                        <div class="commerce-setup">
+                            <div class="feature-recommendations">
+                                <h3>Recommended Features</h3>
+                                <div class="recommendation-cards">
+                                    <!-- AI will populate recommended features here -->
                                 </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="wishlist">
-                                    <label for="wishlist">Wishlist</label>
+                            </div>
+                            <div class="feature-configuration">
+                                <div class="feature-group">
+                                    <h3>Shopping Experience</h3>
+                                    <div class="feature-grid">
+                                        <div class="feature-card">
+                                            <div class="feature-header">
+                                                <h4>Quick View</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="quickView">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            <p>Preview products without leaving the page</p>
+                                            <div class="feature-options hidden">
+                                                <!-- Feature specific options -->
+                                            </div>
+                                        </div>
+                                        <div class="feature-card">
+                                            <div class="feature-header">
+                                                <h4>Wishlist</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="wishlist">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            <p>Let customers save items for later</p>
+                                            <div class="feature-options hidden">
+                                                <!-- Feature specific options -->
+                                            </div>
+                                        </div>
+                                        <div class="feature-card">
+                                            <div class="feature-header">
+                                                <h4>AI Product Discovery</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="aiDiscovery">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            <p>Help customers find products through natural conversation</p>
+                                            <div class="feature-options hidden">
+                                                <!-- Feature specific options -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="compare">
-                                    <label for="compare">Compare Products</label>
+                                <div class="feature-group">
+                                    <h3>Checkout & Payments</h3>
+                                    <div class="feature-grid">
+                                        <div class="feature-card">
+                                            <div class="feature-header">
+                                                <h4>Express Checkout</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="expressCheckout">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            <p>Streamlined one-page checkout process</p>
+                                            <div class="feature-options hidden">
+                                                <!-- Feature specific options -->
+                                            </div>
+                                        </div>
+                                        <div class="feature-card">
+                                            <div class="feature-header">
+                                                <h4>Smart Payments</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="smartPayments">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            <p>Automatically show relevant payment methods</p>
+                                            <div class="feature-options hidden">
+                                                <!-- Feature specific options -->
+                                            </div>
+                                        </div>
+                                        <div class="feature-card">
+                                            <div class="feature-header">
+                                                <h4>Buy Now, Pay Later</h4>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="bnpl">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            <p>Flexible payment options for customers</p>
+                                            <div class="feature-options hidden">
+                                                <!-- Feature specific options -->
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="feature-group">
-                            <h3>Checkout Options</h3>
-                            <div class="feature-options">
-                                <div class="feature-option">
-                                    <input type="checkbox" id="guestCheckout">
-                                    <label for="guestCheckout">Guest Checkout</label>
-                                </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="expressCheckout">
-                                    <label for="expressCheckout">Express Checkout</label>
-                                </div>
+                        <div class="setup-summary">
+                            <h3>Your Commerce Setup</h3>
+                            <div class="summary-content">
+                                <!-- AI generated summary of selected features and recommendations -->
                             </div>
+                            <button class="btn btn-primary" id="completeSetup">Complete Setup</button>
                         </div>
                     </div>
                 </div>
